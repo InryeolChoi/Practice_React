@@ -1,0 +1,19 @@
+body {
+  display: flex;
+  justify-content: center;
+}
+
+.template {
+  text-align: center;
+}
+
+.login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.into_value{
+  margin: 4px;
+  outline: none none none
+}
