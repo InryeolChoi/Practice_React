@@ -3,11 +3,38 @@ import './App.css';
 
 function App() {
   const [id, setId] = useState("");
-  const handleId = ({ target: { value } }) => setId(value)
+  const handleId = (e) => {
+    setId(e.target.value)
+    const url = `https://graphql-ts.vercel.app/`;
+    const query = `mutation{
+                    login (email: "${id}", password: "${pw}") 
+                    {token}
+                  }`;
+    fetch(url, {
+            method: "POST",
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ query }),
+    })
+      .then( (res) => res.json() )
+      .then( (output) => {
+        console.log(output)
+        if ('errors' in output) {
+          if(output.errors[0].message === 'No Such User Found') {
+            handleError();
+          }
+          else{
+            handleError();
+          }
+        }
+        })
+  }
 
   const [pw, setPw] = useState("");
   const handlePw = ({ target: { value } }) => setPw(value)
-    
+
+  const [error, setError] = useState(false);
+  const handleError = () => {setError((!error))}
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const url = `https://graphql-ts.vercel.app/`;
@@ -40,12 +67,13 @@ function App() {
       <div className="template">
         <h1>Homepage</h1>
         <form onSubmit={handleSubmit} className='login'>
-          <input 
+          <input
             className="into_value"
             type='text'
             value={id}
             onChange={handleId}
           />
+          {error && <div className="errormessage">아이디가 잘못되었습니다.</div>}
           <input
             className="into_value"
             type='text'

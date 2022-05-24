@@ -17,3 +17,7 @@ body {
   margin: 4px;
   outline: none none none
 }
+
+.errormessage {
+  font-size: 9px;
+}
