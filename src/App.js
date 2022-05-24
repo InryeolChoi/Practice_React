@@ -24,6 +24,7 @@ function App() {
           }
           else{
             handleError();
+            handleAppear();
           }
         }
         })
@@ -32,8 +33,12 @@ function App() {
   const [pw, setPw] = useState("");
   const handlePw = ({ target: { value } }) => setPw(value)
 
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(true);
   const handleError = () => {setError((!error))}
+
+  const [appear, setAppear] = useState(false);
+  const handleAppear = () => {setAppear(!appear)}
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -73,13 +78,16 @@ function App() {
             value={id}
             onChange={handleId}
           />
-          {error && <div className="errormessage">아이디가 잘못되었습니다.</div>}
-          <input
+          {!error && <div className="errormessage">아이디가 잘못되었습니다.</div>}
+          {appear &&
+            <input
             className="into_value"
             type='text'
             value={pw}
             onChange={handlePw}
-          />
+            />
+          }
+          
           <button className="into_value" type='submit'>Click!</button>
         </form>
       </div>
