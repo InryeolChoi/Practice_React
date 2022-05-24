@@ -20,10 +20,10 @@ function App() {
         console.log(output)
         if ('errors' in output) {
           if(output.errors[0].message === 'No Such User Found') {
-            handleError();
+            handleError(true);
           }
           else{
-            handleError();
+            handleError(false);
             handleAppear();
           }
         }
@@ -33,12 +33,11 @@ function App() {
   const [pw, setPw] = useState("");
   const handlePw = ({ target: { value } }) => setPw(value)
 
-  const [error, setError] = useState(true);
-  const handleError = () => {setError((!error))}
+  const [error, setError] = useState(false);
+  const handleError = (e) => {setError(e)}
 
   const [appear, setAppear] = useState(false);
   const handleAppear = () => {setAppear(!appear)}
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -78,7 +77,7 @@ function App() {
             value={id}
             onChange={handleId}
           />
-          {!error && <div className="errormessage">아이디가 잘못되었습니다.</div>}
+          {error && <div className="errormessage">아이디가 잘못되었습니다.</div>}
           {appear &&
             <input
             className="into_value"
