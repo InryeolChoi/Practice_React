@@ -17,14 +17,13 @@ function App() {
     })
       .then( (res) => res.json() )
       .then( (output) => {
-        console.log(output)
         if ('errors' in output) {
           if(output.errors[0].message === 'No Such User Found') {
             handleError(true);
           }
-          else{
+          else {
             handleError(false);
-            handleAppear();
+            handleAppear(true);
           }
         }
         })
@@ -37,7 +36,7 @@ function App() {
   const handleError = (e) => {setError(e)}
 
   const [appear, setAppear] = useState(false);
-  const handleAppear = () => {setAppear(!appear)}
+  const handleAppear = (e) => {setAppear(e)}
 
   const handleSubmit = (e) => {
     e.preventDefault();
